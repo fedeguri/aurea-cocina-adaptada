@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recursos gratuitos | Áurea — Cocina Adaptada</title>
+<meta name="description" content="Recetas, guías y tips gratuitos de Áurea — cocina sin gluten.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E3; --cream-2:#EFE7D2; --paper:#FFFDF8;
+    --gold:#B3822C; --gold-deep:#8C6420; --gold-light:#DDB05C; --gold-pale:#EEDDAF;
+    --ink:#1A1712; --ink-soft:#524A3B; --line: rgba(26,23,18,0.12);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Work Sans', sans-serif; background:var(--cream); color:var(--ink); line-height:1.62; -webkit-font-smoothing:antialiased; font-size:16px;}
+  h1,h2,h3{font-family:'Cormorant Garamond', serif; font-weight:600; color:var(--ink); line-height:1.1;}
+  .label{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-deep); font-weight:500;}
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:900px; margin:0 auto; padding:0 32px;}
+  @media(max-width:640px){.wrap{padding:0 20px;}}
+
+  .btn{display:inline-flex; align-items:center; gap:9px; background:var(--ink); color:var(--paper); padding:16px 32px; border-radius:2px; font-weight:600; font-size:0.95rem; border:none; cursor:pointer; transition:background .25s ease;}
+  .btn:hover{background:#000;}
+  .btn-gold{background:var(--gold);}
+  .btn-gold:hover{background:var(--gold-deep);}
+
+  header{background:rgba(246,241,227,0.94); backdrop-filter:blur(6px); padding:16px 0; position:sticky; top:0; z-index:50; border-bottom:1px solid var(--line);}
+  header .inner{max-width:1180px; margin:0 auto; padding:0 32px; display:flex; align-items:center; justify-content:space-between;}
+  @media(max-width:640px){header .inner{padding:0 20px;}}
+  .brand{display:flex; align-items:center; gap:12px;}
+  .brand svg{height:42px; width:auto;}
+  nav a.navlink{font-size:0.86rem; font-weight:500; color:var(--ink-soft); margin-left:22px;}
+  nav a.navlink:hover{color:var(--gold-deep);}
+  nav{display:none;}
+  @media(min-width:820px){nav{display:block;}}
+
+  .page-head{padding:64px 0 48px; text-align:center;}
+  .page-head p.label{margin-bottom:14px;}
+  .page-head h1{font-size:clamp(2rem,4.4vw,2.8rem); margin-bottom:16px;}
+  .page-head p.lede{color:var(--ink-soft); font-size:1.05rem; max-width:52ch; margin:0 auto;}
+
+  .lista{padding-bottom:70px;}
+  .recurso-row{
+    display:flex; gap:20px; align-items:center; padding:20px 0; border-bottom:1px solid var(--line);
+    cursor:pointer; transition:padding-left .2s ease;
+  }
+  .recurso-row:hover{padding-left:8px;}
+  .recurso-row .thumb{width:76px; height:76px; flex-shrink:0; border-radius:6px; overflow:hidden; background:var(--gold-pale);}
+  .recurso-row .thumb img{width:100%; height:100%; object-fit:cover;}
+  .recurso-row .thumb.sin-foto{display:flex; align-items:center; justify-content:center; font-size:1.4rem;}
+  .recurso-row .info{flex:1; min-width:0;}
+  .recurso-row h3{font-size:1.22rem; margin-bottom:4px;}
+  .recurso-row .teaser{color:var(--ink-soft); font-size:0.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .recurso-row .arrow{font-family:'IBM Plex Mono',monospace; color:var(--gold-deep); font-size:1.1rem; flex-shrink:0;}
+
+  .estado{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft); border:1.5px dashed var(--line); padding:34px; text-align:center; border-radius:2px;}
+
+  .ig-cta{margin-top:34px; padding-top:30px; border-top:1px solid var(--line); display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .ig-cta p{font-size:0.92rem; color:var(--ink-soft);}
+  .ig-cta a{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold-deep); border-bottom:1px solid var(--gold-deep); padding-bottom:1px;}
+
+  .modal-overlay{position:fixed; inset:0; background:rgba(26,23,18,0.75); z-index:100; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .modal{background:var(--paper); max-width:540px; width:100%; max-height:88vh; overflow-y:auto; border-radius:6px; position:relative; box-shadow:0 30px 60px rgba(0,0,0,0.4);}
+  .modal img{width:100%; max-height:340px; object-fit:cover;}
+  .modal-body{padding:28px 30px 32px;}
+  .modal-body h3{font-size:1.5rem; margin-bottom:14px;}
+  .modal-body p{font-size:0.98rem; color:var(--ink-soft); margin-bottom:22px; line-height:1.7; white-space:pre-line;}
+  .modal-cerrar{position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%; background:rgba(26,23,18,0.7); color:#fff; border:none; cursor:pointer; font-size:16px; z-index:2;}
+  .modal-cerrar:hover{background:var(--ink);}
+
+  footer{background:#0F0D0A; color:#C7BFA8; padding:44px 0; font-size:0.88rem; text-align:center;}
+  footer a{color:var(--gold-light);}
+
+  .wa-float{position:fixed; bottom:24px; right:24px; background:var(--gold); color:#fff; width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px rgba(26,23,18,0.4); z-index:60; font-size:1.5rem;}
+  .wa-float:hover{background:var(--gold-deep);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a href="index.html" class="brand" aria-label="Áurea, cocina adaptada">
+      <svg viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M28,30 m0,-19 a19,19 0 0 1 0,38 a14.1,14.1 0 0 1 0,-28.2 a10.4,10.4 0 0 1 0,20.8 a7.7,7.7 0 0 1 0,-15.4" fill="none" stroke="#B3822C" stroke-width="1.1" opacity="0.85"/>
+        <text x="52" y="30" font-family="Cormorant Garamond, serif" font-size="26" font-weight="700" fill="#1A1712" letter-spacing="2">Á<tspan fill="#B3822C">UREA</tspan></text>
+        <text x="52" y="46" font-family="IBM Plex Mono, monospace" font-size="8.5" letter-spacing="2.5" fill="#524A3B">SIN GLUTEN</text>
+      </svg>
+    </a>
+    <nav>
+      <a class="navlink" href="index.html#nuestra-cocina">Nuestra Cocina</a>
+      <a class="navlink" href="index.html#sistema">Sistema Cocina Adaptada</a>
+      <a class="navlink" href="recursos.html">Recursos gratuitos</a>
+      <a class="navlink" href="index.html#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <p class="label">Gratis para vos</p>
+    <h1>Recursos gratuitos</h1>
+    <p class="lede">Recetas, guías y tips sueltos que vamos compartiendo — subidos directo por Áurea, sin esperar a nadie. Tocá un título para ver la receta completa.</p>
+  </div>
+</section>
+
+<section class="lista">
+  <div class="wrap">
+    <div id="recursos-lista">
+      <div class="estado">Cargando recursos…</div>
+    </div>
+    <div class="ig-cta">
+      <p>📲 Seguinos en Instagram — cada recurso nuevo se anuncia ahí primero.</p>
+      <a href="https://www.instagram.com/aurea.singluten" target="_blank" rel="noopener">@aurea.singluten →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Áurea — Cocina Adaptada · <a href="index.html">Volver al inicio</a></p>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5492267631395?text=Hola!%20Vi%20la%20p%C3%A1gina%20de%20%C3%81urea" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">💬</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+  // Publicar esta Sheet: Archivo → Compartir → Publicar en la Web → CSV
+  const RECURSOS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQjaS0yJH-BNPJ5owIGqcHmPoPZ_4lePfuuJJriSCGk0rXAZMy4EqcShgDiHLhVCWJK-sQ3gGV_HIsp/pub?output=csv";
+
+  // Convierte cualquier link de Drive (el que guarda el Form al subir un archivo)
+  // en un link de imagen directa que sí funciona dentro de un <img src="">.
+  function fotoDirecta(campoFotos){
+    if(!campoFotos) return "";
+    const raw = campoFotos.split(",")[0].trim();
+    const m = raw.match(/[-\w]{25,}/); // extrae el ID del archivo de Drive
+    if(!m) return raw;
+    return `https://drive.google.com/thumbnail?id=${m[0]}&sz=w800`;
+  }
+
+  function teaser(texto, max){
+    if(!texto) return "";
+    return texto.length > max ? texto.slice(0, max).trim() + "…" : texto;
+  }
+
+  function renderLista(filas){
+    const cont = document.getElementById("recursos-lista");
+    if(!filas || filas.length === 0){
+      cont.innerHTML = '<div class="estado">Todavía no hay recursos publicados — pronto vas a encontrar acá recetas y guías gratis.</div>';
+      return;
+    }
+    filas = filas.slice().reverse();
+    window._recursosData = filas;
+    cont.innerHTML = filas.map((fila, i) => {
+      const titulo = (fila[1] || "Recurso sin título").replace(/"/g,'&quot;');
+      const descripcion = fila[2] || "";
+      const foto = fotoDirecta(fila[3]);
+      return `
+        <div class="recurso-row" data-idx="${i}" role="button" tabindex="0">
+          <div class="thumb ${foto ? "" : "sin-foto"}">${foto ? `<img src="${foto}" alt="${titulo}" loading="lazy">` : "📄"}</div>
+          <div class="info">
+            <h3>${titulo}</h3>
+            <p class="teaser">${teaser(descripcion, 90)}</p>
+          </div>
+          <span class="arrow">→</span>
+        </div>`;
+    }).join("");
+
+    document.querySelectorAll(".recurso-row").forEach(el => {
+      const open = () => abrirModal(parseInt(el.dataset.idx, 10));
+      el.addEventListener("click", open);
+      el.addEventListener("keypress", (e) => { if(e.key === "Enter") open(); });
+    });
+  }
+
+  function abrirModal(idx){
+    const fila = window._recursosData[idx];
+    if(!fila) return;
+    const titulo = fila[1] || "Recurso";
+    const descripcion = fila[2] || "";
+    const foto = fotoDirecta(fila[3]);
+    const link = fila[4] || "";
+    const modal = document.createElement("div");
+    modal.className = "modal-overlay";
+    modal.innerHTML = `
+      <div class="modal">
+        <button class="modal-cerrar" aria-label="Cerrar">✕</button>
+        ${foto ? `<img src="${foto}" alt="${titulo}">` : ""}
+        <div class="modal-body">
+          <h3>${titulo}</h3>
+          <p>${descripcion}</p>
+          ${link ? `<a class="btn btn-gold" href="${link}" target="_blank" rel="noopener">Ver más →</a>` : ""}
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    document.body.style.overflow = "hidden";
+    const cerrar = () => { modal.remove(); document.body.style.overflow = ""; };
+    modal.querySelector(".modal-cerrar").addEventListener("click", cerrar);
+    modal.addEventListener("click", (e) => { if(e.target === modal) cerrar(); });
+    document.addEventListener("keydown", function esc(e){ if(e.key === "Escape"){ cerrar(); document.removeEventListener("keydown", esc); } });
+  }
+
+  Papa.parse(RECURSOS_CSV_URL, {
+    download: true,
+    complete: function(results){
+      const filas = results.data.filter(f => f && f[1] && f[1] !== "Título del recurso");
+      renderLista(filas);
+    },
+    error: function(){
+      document.getElementById("recursos-lista").innerHTML =
+        '<div class="estado">No pudimos cargar los recursos en este momento. Probá de nuevo más tarde.</div>';
+    }
+  });
+</script>
+
+</body>
+</html>
