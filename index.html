@@ -225,6 +225,10 @@
   .nueve-list li{position:relative; padding-left:22px; font-size:0.95rem; color:var(--ink);}
   .nueve-list li::before{content:"\25C6"; position:absolute; left:0; top:0.3em; color:var(--gold); font-size:0.7rem;}
   .nueve-cta{display:flex; flex-wrap:wrap; gap:16px; align-items:center;}
+  .nueve-precio{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 14px; margin:-6px 0 26px;}
+  .nueve-precio .ahora{font-family:'IBM Plex Mono',monospace; font-size:1.6rem; font-weight:500; color:var(--gold-deep);}
+  .nueve-precio .antes{font-family:'IBM Plex Mono',monospace; font-size:0.95rem; color:var(--ink-soft); text-decoration:line-through;}
+  .nueve-precio .aviso{flex-basis:100%; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft);}
   .nueve-cta .nota{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft);}
 
   /* ---------- Testimonios de productos (chat bubbles reales) ---------- */
@@ -348,6 +352,7 @@
         <a class="navlink" href="#nuestra-cocina">Nuestra Cocina</a>
         <a class="navlink" href="#sistema">Sistema Cocina Adaptada</a>
         <a class="navlink" href="#9masas">9MASAS</a>
+        <a class="navlink" href="#pan-dulce">Pan dulce</a>
         <a class="navlink" href="#quienes-somos">Quiénes somos</a>
         <a class="navlink" href="recursos.html">Recursos gratuitos</a>
         <a class="navlink" href="#contacto">Contacto</a>
@@ -360,6 +365,7 @@
       <a class="navlink" href="#nuestra-cocina" onclick="document.getElementById('navMobile').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');document.body.style.overflow=''">Nuestra Cocina</a>
       <a class="navlink" href="#sistema" onclick="document.getElementById('navMobile').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');document.body.style.overflow=''">Sistema Cocina Adaptada</a>
       <a class="navlink" href="#9masas" onclick="document.getElementById('navMobile').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');document.body.style.overflow=''">9MASAS</a>
+      <a class="navlink" href="#pan-dulce" onclick="document.getElementById('navMobile').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');document.body.style.overflow=''">Pan dulce</a>
       <a class="navlink" href="recursos.html" onclick="document.getElementById('navMobile').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');document.body.style.overflow=''">Recursos gratuitos</a>
       <a class="navlink" href="#contacto" onclick="document.getElementById('navMobile').classList.remove('open');document.getElementById('navToggle').setAttribute('aria-expanded','false');document.body.style.overflow=''">Contacto</a>
       <a class="btn btn-gold" href="https://wa.me/5492267631395?text=Hola!%20Quiero%20hacer%20un%20pedido%20de%20%C3%81urea" target="_blank" rel="noopener">WhatsApp</a>
@@ -738,6 +744,50 @@
   </div>
 </section>
 
+<section class="nueve" id="pan-dulce">
+  <div class="wrap">
+    <div class="grid">
+      <div class="nueve-cover reveal">
+        <img src="https://dcdn-us.mitiendanube.com/stores/008/338/360/products/01_portada-59818e630132e2fd5817944280009706-640-0.webp" alt="Portada de la guía PDF Pan Dulce Sin Gluten + 12 variantes" width="640" height="640" loading="lazy">
+      </div>
+      <div class="reveal">
+        <p class="label">Producto digital · Navidad</p>
+        <h2>Pan dulce sin gluten, húmedo y tierno.</h2>
+        <p class="lede">Una guía en PDF con la receta paso a paso, pesos exactos y 12 variantes para que este año el pan dulce también sea para vos.</p>
+        <ul class="nueve-list">
+          <li>Receta tradicional con pesos, tiempos y señales para saber que vas bien</li>
+          <li>12 variantes: Clásico Argentino, Chocotón, Dulce de Leche, Tropical y más</li>
+          <li>4 glaseados y baños para terminarlo como de pastelería</li>
+          <li>Errores comunes: qué hacer si no leuda, si queda seco o si la corteza sale dura</li>
+          <li>Cómo conservarlo y congelarlo para todas las fiestas</li>
+        </ul>
+        <div class="nueve-precio" id="pdPrecio" data-hasta="2026-12-09T00:00:00-03:00">
+          <span class="ahora" id="pdAhora">$3.999</span>
+          <span class="antes" id="pdAntes">$6.999</span>
+          <span class="aviso" id="pdAviso">Precio de lanzamiento hasta el 8 de diciembre</span>
+        </div>
+        <div class="nueve-cta">
+          <a class="btn btn-gold" href="https://aureacocinaadaptada.mitiendanube.com/productos/pan-dulce-sin-gluten/" target="_blank" rel="noopener">Comprar la guía</a>
+          <span class="nota">PDF de 17 páginas · acceso inmediato por mail</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  (function(){
+    // Pasada la fecha de lanzamiento, se muestra el precio regular.
+    try{
+      var box=document.getElementById('pdPrecio');
+      if(box && Date.now() >= new Date(box.getAttribute('data-hasta')).getTime()){
+        document.getElementById('pdAhora').textContent='$6.999';
+        document.getElementById('pdAntes').style.display='none';
+        document.getElementById('pdAviso').style.display='none';
+      }
+    }catch(e){}
+  })();
+  </script>
+</section>
+
 <section class="testimonios-productos">
   <div class="wrap">
     <div class="head reveal">
@@ -792,6 +842,7 @@
           <li><a href="#nuestra-cocina">Nuestra Cocina</a></li>
           <li><a href="#sistema">Sistema Cocina Adaptada</a></li>
           <li><a href="#9masas">9MASAS</a></li>
+          <li><a href="#pan-dulce">Pan dulce sin gluten</a></li>
           <li><a href="recursos.html">Recursos gratuitos</a></li>
           <li><a href="https://instagram.com/aurea.singluten" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://facebook.com/aurea.singluten" target="_blank" rel="noopener">Facebook</a></li>
