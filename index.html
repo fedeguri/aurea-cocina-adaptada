@@ -231,6 +231,18 @@
   .pd-adentro img{width:100%; height:auto; display:block; border-radius:3px; border:1px solid var(--line); box-shadow:0 18px 40px -24px rgba(26,23,18,0.45);}
   .pd-adentro figcaption{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin-top:12px;}
   .nueve-cta .nota{font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft);}
+  #pan-dulce .pd-precio{margin:0 0 22px;}
+  #pan-dulce .pd-precio-label{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-deep); font-weight:500; margin-bottom:2px;}
+  #pan-dulce .pd-precio-monto{display:block; font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(2.6rem,9vw,3.4rem); line-height:1; color:var(--ink); letter-spacing:-0.01em;}
+  #pan-dulce .pd-precio-sub{display:block; font-size:0.9rem; color:var(--ink-soft); margin-top:6px;}
+  #pan-dulce .pd-precio [hidden]{display:none;}
+  #pan-dulce .pd-cta{display:flex; flex-direction:column; align-items:flex-start; gap:12px;}
+  #pan-dulce .pd-cta .nota-chica{font-size:0.82rem; line-height:1.5; color:var(--ink-soft); max-width:46ch; margin:0;}
+  @media(max-width:560px){
+    #pan-dulce .pd-cta{align-items:stretch;}
+    #pan-dulce .pd-cta .btn{justify-content:center; width:100%;}
+    #pan-dulce .pd-precio{text-align:center;}
+  }
 
   /* ---------- Testimonios de productos (chat bubbles reales) ---------- */
   .testimonios-productos{background:var(--paper);}
@@ -755,7 +767,7 @@
   <div class="wrap">
     <div class="grid">
       <div class="nueve-cover reveal">
-        <img src="img/pan-dulce-1.webp" alt="Guía digital Pan Dulce Sin Gluten y Variantes de Áurea: portada, índice y receta base" width="900" height="900" loading="lazy">
+        <img src="img/pan-dulce-1.webp" alt="Guía digital Pan Dulce Sin Gluten y Variantes de Áurea: portada con título, índice de contenidos y página de la receta base" width="900" height="900" loading="lazy">
       </div>
       <div class="reveal">
         <p class="label">Producto digital · Edición navideña</p>
@@ -763,19 +775,31 @@
         <p class="lede">Una guía práctica para preparar pan dulce sin gluten en tu casa: partís de una receta base explicada paso a paso y la personalizás con distintas variantes, glaseados y coberturas.</p>
         <ul class="nueve-list">
           <li>Guía digital de 17 páginas</li>
-          <li>Receta base de pan dulce tradicional sin gluten</li>
-          <li>12 variantes para preparar y personalizar</li>
-          <li>4 opciones de glaseados y coberturas</li>
+          <li>Receta base de pan dulce tradicional sin gluten, paso a paso</li>
+          <li>12 variantes para elegir</li>
+          <li>4 glaseados y coberturas</li>
+          <li>Tips, errores comunes y conservación</li>
         </ul>
-        <div class="nueve-cta">
+        <div class="pd-cta">
+          <div class="pd-precio" id="pdPrecio">
+            <div id="pdLanzamiento" hidden>
+              <span class="pd-precio-label">Precio de lanzamiento</span>
+              <span class="pd-precio-monto">$3.999</span>
+              <span class="pd-precio-sub">hasta el 8 de diciembre · después $9.999</span>
+            </div>
+            <div id="pdRegular">
+              <span class="pd-precio-monto">$9.999</span>
+            </div>
+          </div>
           <a class="btn btn-gold" href="https://aureacocinaadaptada.mitiendanube.com/productos/pan-dulce-sin-gluten/" target="_blank" rel="noopener">Comprar la guía</a>
-          <span class="nota">Producto digital · se compra online</span>
+          <p class="nota-chica">Producto digital. Pagás por transferencia o tarjeta y te llega el acceso por mail automáticamente apenas se acredita el pago.</p>
+          <p class="nota-chica">Usá siempre ingredientes aptos celíacos: revisá el logo SIN TACC en cada envase.</p>
         </div>
       </div>
     </div>
     <div class="pd-adentro reveal">
       <figure>
-        <img src="img/pan-dulce-2.webp" alt="Página de la guía: receta base de pan dulce tradicional sin gluten" width="900" height="900" loading="lazy">
+        <img src="img/pan-dulce-2.webp" alt="Página de la guía con la receta base de pan dulce tradicional sin gluten: rinde 2 panes medianos, tiempo aproximado de 4 a 6 horas" width="900" height="900" loading="lazy">
         <figcaption>Receta base paso a paso</figcaption>
       </figure>
       <figure>
@@ -903,6 +927,26 @@
       document.body.style.overflow='';
     }
   });
+</script>
+<script>
+/* Precio pan dulce: lanzamiento hasta el 8-dic-2026 23:59 (Argentina, UTC-3). Si algo falla, queda $9.999. */
+(function(){
+  try{
+    var fin = Date.parse('2026-12-08T23:59:00-03:00');
+    var ref = Date.parse('2026-01-01T00:00:00-03:00');
+    var lanz = document.getElementById('pdLanzamiento');
+    var reg = document.getElementById('pdRegular');
+    if(!lanz || !reg || isNaN(fin)) return;
+    function render(){
+      var ahora = Date.now();
+      var vigente = isFinite(ahora) && ahora >= ref && ahora < fin;
+      lanz.hidden = !vigente;
+      reg.hidden = vigente;
+    }
+    render();
+    setInterval(render, 30000);
+  }catch(e){ /* sin cambios: se ve $9.999 */ }
+})();
 </script>
 </body>
 </html>
